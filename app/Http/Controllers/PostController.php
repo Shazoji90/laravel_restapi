@@ -13,4 +13,10 @@ class PostController extends Controller
         $data = Post::all();
         return response()->json($data, 200);
     }
+
+    public function show($id)
+    {
+        $data = Post::find($id);
+        return response()->json($data, 200);
+    }
 }
