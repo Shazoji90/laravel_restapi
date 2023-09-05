@@ -16,6 +16,7 @@ class PostController extends Controller
     }
 
     public function show($id)
+    // public function show(Post $post)
     {
         $data = Post::find($id);
         if(is_null($data)) {
@@ -24,26 +25,18 @@ class PostController extends Controller
             ], 404);
         }
         return response()->json($data, 200);
+        // return response()->json($post, 200);
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
-        $mesages = [
-            'title.required' => ':attribute tidak ditemukan.',
-            'title.min' => ':attribute minimal :min karakter.',
-        ];
+        Validator::make($data,[
+'title' => ['required','min:5']
+        ]);
 
-        $validator = Validator::make($data, [
-            'title' => ['required','min:5']
-        ], $mesages);
-
-        if($validator->fails()) {
-            return response()->json([
-                'error' => $validator->errors()
-            ], 400);
-        }
-
+        // Post::create($data);
+        // return response()->json('success', 201);
         $response = Post::create($data);
         return response()->json($response, 201);
     }
@@ -54,6 +47,14 @@ class PostController extends Controller
         return response()->json($post, 200);
     }
 
+    // ==== Jika menggunakan role binding:
+    // public function destroy(Post $post)
+    // {
+    // $post->delete();
+    // return response()->json(null, 200);
+    // }
+
+    // ==== Jika tidak:
     public function destroy($id)
     {
         $data = Post::find($id);
