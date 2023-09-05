@@ -14,12 +14,17 @@ class PostController extends Controller
         return response()->json($data, 200);
     }
 
-    // public function show($id)
-    public function show(Post $post)
+    public function show($id)
+    // public function show(Post $post)
     {
-        // $data = Post::find($id);
-        // return response()->json($data, 200);
-        return response()->json($post, 200);
+        $data = Post::find($id);
+        if(is_null($data)) {
+            return response()->json([
+                'message' => 'Resource not found'
+            ], 404);
+        }
+        return response()->json($data, 200);
+        // return response()->json($post, 200);
     }
 
     public function store(Request $request)
@@ -37,9 +42,26 @@ class PostController extends Controller
         return response()->json($post, 200);
     }
 
-    public function destroy(Post $post)
+    // Jika menggunakan role binding:
+    // public function destroy(Post $post)
+    // {
+    // $post->delete();
+    // return response()->json(null, 200);
+    // }
+
+    // Jika tidak:
+    public function destroy($id)
     {
-        $post->delete();
-        return response()->json(null, 200);
+        $data = Post::find($id);
+        if(is_null($data)) {
+            return response()->json([
+                'message' => 'Resource not found'
+            ], 404);
+        }
+
+        $data->delete();
+        return response()->json([
+            'message' => 'Resource successfully deleted'
+        ], 200);
     }
 }

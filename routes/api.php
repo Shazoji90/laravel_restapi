@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('post', [PostController::class,'index']);
-Route::get('post/{post}', [PostController::class,'show']);
+// Route::get('post/{post}', [PostController::class,'show']); --> menggunakan role binding
+Route::get('post/{id}', [PostController::class,'show']);
 Route::post('post', [PostController::class,'store']);
 Route::put('post/{post}', [PostController::class,'update']);
-Route::delete('post/{post}', [PostController::class,'destroy']);
+// Route::delete('post/{post}', [PostController::class,'destroy']); --> menggunakan role binding
+Route::delete('post/{id}', [PostController::class,'destroy']);
