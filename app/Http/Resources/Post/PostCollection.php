@@ -16,9 +16,9 @@ class PostCollection extends ResourceCollection
     {
         return [
             'data' => PostResource::collection($this->collection),
-            'meta' => [
-                'total_post' => $this->collection->count()
-            ]
+            // 'meta' => [
+            //     'total_post' => $this->collection->count()
+            // ]
         ];
     }
 }
