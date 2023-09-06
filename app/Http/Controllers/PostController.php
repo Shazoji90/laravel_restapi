@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
 
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ class PostController extends Controller
                 'message' => 'Resource not found'
             ], 404);
         }
-        return response()->json($data, 200);
+
+        return new PostResource($data);
+
+        // return response()->json($data, 200);
     }
 
     public function store(Request $request)
