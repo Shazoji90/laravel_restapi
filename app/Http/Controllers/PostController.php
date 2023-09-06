@@ -18,10 +18,7 @@ class PostController extends Controller
 
     public function index()
     {
-        // $data = Post::paginate(5);
-
-        // menggunakan eager loading untuk optimasi query, user merupakan method relasi pada Post.php
-        $data = Post::with('user')->paginate(5);
+        $data = Post::paginate(5);
 
         return new PostCollection($data);
 
